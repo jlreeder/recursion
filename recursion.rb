@@ -1,3 +1,5 @@
+require 'byebug'
+
 def sum_to(n)
   return nil if n < 1
   return 1 if n == 1
@@ -15,13 +17,11 @@ def gamma_fnc(n)
   (n - 1) * gamma_fnc(n - 1)
 end
 
-require 'byebug'
-
 def range(start_num, end_num)
   return [] if end_num < start_num
   return [end_num] if start_num == end_num
 
-  range(start_num+1,end_num).unshift(start_num)
+  range(start_num + 1, end_num).unshift(start_num)
 end
 
 def sum_recursive(arr)
@@ -38,17 +38,17 @@ end
 
 def exp_1(b, n)
   return 1 if n == 0
-  b * exp_1(b, n-1)
+  b * exp_1(b, n - 1)
 end
 
 def exp_2(b, n)
   return 1 if n == 0
   return b if n == 1
   if n.even?
-    exp_half = exp_2(b, n/2)
+    exp_half = exp_2(b, n / 2)
     exp_half * exp_half
   else
-    exp_half_odd = exp_2(b, (n-1) / 2)
+    exp_half_odd = exp_2(b, (n - 1) / 2)
     b * exp_half_odd * exp_half_odd
   end
 end
@@ -65,7 +65,7 @@ class Array
     copy = self.dup
     last_el = copy.pop
     subs = copy.subsets
-    subs_with_last = subs.map { |sub_array| sub_array += [last_el] }
+    subs_with_last = subs.map { |sub_array| sub_array + [last_el] }
     subs.concat(subs_with_last)
   end
 end
@@ -83,8 +83,8 @@ def fibonacci_iter(num)
   return [1] if num.zero?
   return [1, 1] if num == 1
 
-  fib_nums = [1,1]
-  (num-2).times do
+  fib_nums = [1, 1]
+  (num - 2).times do
     sum = fib_nums.last(2).reduce(:+)
     fib_nums << sum
   end
@@ -100,7 +100,7 @@ class Array
     last_perm = self[0...-1].permutations
 
     last_perm.each do |permutation|
-      (permutation.length+1).times do |idx|
+      (permutation.length + 1).times do |idx|
         perms << permutation.dup.insert(idx, self.last)
       end
     end
@@ -117,7 +117,7 @@ class Array
       self[0...midpoint].bsearch(target)
     elsif self[midpoint] < target
       add_to_midpoint = self[midpoint..-1].bsearch(target)
-      midpoint += add_to_midpoint unless add_to_midpoint.nil?
+      midpoint + add_to_midpoint unless add_to_midpoint.nil?
     end
   end
 
@@ -136,7 +136,7 @@ class Array
       smaller = left.first > right.first ? right.shift : left.shift
       merged << smaller
     end
-    merged += left + right
+    merged + left + right
   end
 end
 
@@ -152,7 +152,7 @@ def greedy_make_change(amount, coins)
     coins.delete(next_coin)
   end
 
-  chosen += greedy_make_change(amount,coins)
+  chosen + greedy_make_change(amount, coins)
 end
 
 # FIXME: Not yet complete
