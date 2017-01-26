@@ -17,39 +17,35 @@ def gamma_fnc(n)
   (n - 1) * gamma_fnc(n - 1)
 end
 
-def range(start_num, end_num)
-  return [] if end_num < start_num
-  return [end_num] if start_num == end_num
-
-  range(start_num + 1, end_num).unshift(start_num)
+def range(min, max)
+  return [] if max <= min
+  range(min + 1, max).unshift(min)
 end
 
-def sum_recursive(arr)
-  return arr.first if arr.length == 1
-  arr.first + sum(arr[1..-1])
+def sum_recursive(nums)
+  return 0 if nums.empty?
+  nums.first + sum_recursive(nums.drop(1))
 end
 
-def sum_iterative(arr)
-  # arr.inject(:+)
+def sum_iterative(nums)
   sum = 0
-  arr.each { |el| sum += el }
+  nums.each { |el| sum += el }
   sum
 end
 
 def exp_1(b, n)
-  return 1 if n == 0
-  b * exp_1(b, n - 1)
+  n == 0 ? 1 :  b * exp_1(b, n - 1)
 end
 
 def exp_2(b, n)
   return 1 if n == 0
-  return b if n == 1
+
+  half = exp_2(b, n / 2)
+
   if n.even?
-    exp_half = exp_2(b, n / 2)
-    exp_half * exp_half
+    half * half
   else
-    exp_half_odd = exp_2(b, (n - 1) / 2)
-    b * exp_half_odd * exp_half_odd
+    b * half * half
   end
 end
 
