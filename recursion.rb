@@ -56,24 +56,22 @@ class Array
   end
 
   def subsets
-    return [[]] if self.empty?
+    return [[]] if empty?
 
-    copy = self.dup
-    last_el = copy.pop
-    subs = copy.subsets
-    subs_with_last = subs.map { |sub_array| sub_array + [last_el] }
+    subs = take(count - 1).subsets
+    subs_with_last = subs.map { |sub_array| sub_array + [last] }
     subs.concat(subs_with_last)
   end
 
   def permutations
-    return [[]] if self.empty?
+    return [[]] if empty?
     perms = []
 
-    last_perm = self[0...-1].permutations
+    last_perm = drop(1).permutations
 
     last_perm.each do |permutation|
       (permutation.length + 1).times do |idx|
-        perms << permutation.dup.insert(idx, self.last)
+        perms << permutation.dup.insert(idx, last)
       end
     end
     perms
@@ -97,8 +95,8 @@ class Array
     return self if length <= 1
 
     midpoint = length / 2
-    left = self[0...midpoint].merge_sort
-    right = self[midpoint..-1].merge_sort
+    left = take(midpoint).merge_sort
+    right = drop(midpoint).merge_sort
     Array.merge(left, right)
   end
 
