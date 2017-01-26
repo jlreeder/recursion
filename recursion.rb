@@ -64,30 +64,6 @@ class Array
     subs_with_last = subs.map { |sub_array| sub_array + [last_el] }
     subs.concat(subs_with_last)
   end
-end
-
-def fibonacci(num)
-  return [1] if num.zero?
-  return [1, 1] if num == 1
-
-  previous_fib = fibonacci(num - 1)
-  sum = previous_fib.last(2).reduce(:+)
-  previous_fib.push(sum)
-end
-
-def fibonacci_iter(num)
-  return [1] if num.zero?
-  return [1, 1] if num == 1
-
-  fib_nums = [1, 1]
-  (num - 2).times do
-    sum = fib_nums.last(2).reduce(:+)
-    fib_nums << sum
-  end
-  fib_nums
-end
-
-class Array
 
   def permutations
     return [[]] if self.empty?
@@ -134,6 +110,28 @@ class Array
     end
     merged + left + right
   end
+end
+
+def fibonacci(num)
+  return [1] if num.zero?
+  return [1, 1] if num == 1
+
+  previous_fib = fibonacci(num - 1)
+  sum = previous_fib.last(2).reduce(:+)
+  previous_fib.push(sum)
+end
+
+def fibonacci_iter(num)
+  return [1] if num.zero?
+  return [1, 1] if num == 1
+
+  fib_nums = [1, 1]
+  (num - 2).times do
+    sum = fib_nums.last(2).reduce(:+)
+    fib_nums << sum
+  end
+
+  fib_nums
 end
 
 def greedy_make_change(amount, coins)
